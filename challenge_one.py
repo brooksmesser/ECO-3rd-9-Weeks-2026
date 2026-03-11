@@ -55,7 +55,6 @@ import random
 def mining(inventory, gem_inventory):
     gemstones = ["diamond", "ruby", "emerald", "topaz", "onyx", "opal", "turquoise", "lapis lazuli"]
     rarity = ["common", "uncommon", "rare", "unique", "fake"]
-    #===========I dont know what this part is above I think its part of thre code and you just gave it to me ==============================================
     # Write your translated Python code below this line!
     import random
 
