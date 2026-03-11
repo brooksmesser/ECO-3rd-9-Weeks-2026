@@ -62,7 +62,6 @@ def mining(inventory, gem_inventory):
 def mining(inventoryPick, gem_inventory, gemstones, rarity):
     print("You head down to the mines...")
 
-    # Determine starting percent based on pick quality
     if inventoryPick == "basic":
         start_percent = 30
     elif inventoryPick == "good":
@@ -77,7 +76,6 @@ def mining(inventoryPick, gem_inventory, gemstones, rarity):
     chance = start_percent
     keepSwinging = "y"
 
-    # Repeat until user stops swinging
     while keepSwinging == "y" or keepSwinging == "Y":
         keepSwinging = input("Swing? Y/N: ")
 
@@ -88,13 +86,11 @@ def mining(inventoryPick, gem_inventory, gemstones, rarity):
             roll = random.randint(1, 100)
 
             if roll <= chance:
-                # Pick random gem and rarity
                 gem_name = random.choice(gemstones)
                 gem_rarity = random.choice(rarity)
 
                 print(f"You carefully uncover a {gem_name}!")
 
-                # Append gem as [Name, Value, Rarity]
                 newGem = [gem_name, 0, gem_rarity]
                 gem_inventory.append(newGem)
             else:
