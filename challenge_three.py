@@ -83,4 +83,71 @@ import random
 
 def shop_sell(inventory, gem_inventory):
     # Write your translated Python code below this line!
-    pass
+    import random
+
+def shop_sell(inventoryMoney, gem_inventory):
+    print("What have you got to sell?")
+
+    if len(gem_inventory) == 0:
+        print("If ya ain't got nothing to sell, why ya bothering me?")
+        return inventoryMoney
+
+    print("--- Your Gems ---")
+    for i, gem in enumerate(gem_inventory, start=1):
+        if gem[1] == 0:
+            print(f"{i}. Unappraised {gem[0]}")
+        else:
+            print(f"{i}. {gem[2]} {gem[0]} (Value: ${gem[1]})")
+
+    choice = input("Enter the number of the gem you want to sell: ")
+
+    if not choice.isdigit():
+        print("You don't have that gem! Stop wasting my time!")
+        return inventoryMoney
+
+    choice = int(choice)
+
+    if choice < 1 or choice > len(gem_inventory):
+        print("You don't have that gem! Stop wasting my time!")
+        return inventoryMoney
+
+    selectedGem = gem_inventory[choice - 1]
+    gemName = selectedGem[0]
+    gemValue = selectedGem[1]
+    gemRarity = selectedGem[2]
+
+    if gemRarity == "appraised_fake":
+        print("Now look here, I ain't in the business of buying fakes.")
+        return inventoryMoney
+
+    if gemValue == 0:
+        print("Looks like this hasn't been appraised yet. Let me see...")
+
+        if gemRarity == "common":
+            gemValue = random.randint(2, 5)
+        elif gemRarity == "uncommon":
+            gemValue = random.randint(7, 10)
+        elif gemRarity == "rare":
+            gemValue = random.randint(12, 20)
+        elif gemRarity == "unique":
+            gemValue = random.randint(25, 50)
+        else:
+            gemValue = 0
+            gemRarity = "appraised_fake"
+
+        selectedGem[1] = gemValue
+        selectedGem[2] = gemRarity
+        gem_inventory[choice - 1] = selectedGem
+
+    if gemRarity != "appraised_fake":
+        print(f"Ah yes. I'd be willing to offer you ${gemValue} for that.")
+        accept = input("Interested? Y/N: ")
+
+        if accept == "y" or accept == "Y":
+            inventoryMoney += gemValue
+            gem_inventory.pop(choice - 1)
+            print("Transaction complete!")
+    else:
+        print("Now look here, I ain't in the business of buying fakes.")
+
+    return inventoryMoney
